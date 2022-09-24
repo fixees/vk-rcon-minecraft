@@ -1,0 +1,9 @@
+{
+    "servers": [
+        {
+            "name": "example",
+            "rcon_ip": "1",
+            "rcon_pass": "supersecret"
+        }
+    ]
+}
