@@ -6,6 +6,14 @@
 - `vkbottle`
 - `asyncio` 
 - `MCRcon`
+## Как скачать?
+1. Ищем красивую кнопочку и нажимаем на нее \
+![image](https://user-images.githubusercontent.com/112260686/192136009-99e89171-0432-4956-8894-cae46ac8857c.png) 
+2. Скачиваем все файлы, которые показаны на фото \
+![image](https://user-images.githubusercontent.com/112260686/192136148-9327579d-ca33-467f-9ce7-f17dc77504a9.png) 
+3. Создаем папку на вашем рабочем пространстве \
+![image](https://user-images.githubusercontent.com/112260686/192136211-66050cdb-d2dd-44e8-9850-ae9adc86cb57.png) 
+4. Перемещаем все файлы, которые мы скачали 2 шага назад, в созданную папку \
 
 ## Стартап
 1. Открываем файл settings.py.
