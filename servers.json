@@ -1,4 +1,43 @@
 {
+    "users": [
+        {
+            "id": "31999365",
+            "perms": "admin"
+        },
+        {
+            "id": "319990365",
+            "perms": "VIP"
+        }
+    ],
+    "perms": [
+        {
+            "VIP": [
+                {
+                    "perm": [
+                        "list"
+                    ]
+                }
+            ],
+            "PREMIUM": [
+                {
+                    "perm": [
+                        "help",
+                        "ban",
+                        "pizda"
+                    ]
+                }
+            ],
+            "ADMIN": [
+                {
+                    "perm": [
+                        "help",
+                        "ban",
+                        "pizda"
+                    ]
+                }
+            ]
+        }
+    ],
     "servers": [
         {
             "name": "example",
