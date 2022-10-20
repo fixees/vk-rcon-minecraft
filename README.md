@@ -4,6 +4,7 @@
 ## Подготовка:
 Скачиваем модули для python3.10 
 - `vkbottle`
+- `vkbottle-types`
 - `asyncio` 
 - `MCRcon`
 ## Как скачать?
