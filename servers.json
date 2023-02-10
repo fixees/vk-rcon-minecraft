@@ -1,0 +1,47 @@
+{
+    "replacement": true,
+    "token": "",
+    "prefix": ".",
+    "owner_id": 319990365,
+    "users": [
+        {
+            "id": "319990365",
+            "rcon": "VIP",
+            "perms": "0"
+        }
+    ],
+    "perms": [
+        {
+            "VIP": [
+                {
+                    "perm": [
+                        "list"
+                    ]
+                }
+            ],
+            "PREMIUM": [
+                {
+                    "perm": [
+                        "help"
+                    ]
+                }
+            ],
+            "ADMIN": [
+                {
+                    "perm": [
+                        "help",
+                        "ban {0}"
+                    ]
+                }
+            ]
+        }
+    ],
+    "servers": [
+        {
+            "name": "example",
+            "rcon_ip": "1.1.1.1",
+            "rcon_port": 32779,
+            "rcon_pass": "supersecret"
+        }
+    ]
+}
