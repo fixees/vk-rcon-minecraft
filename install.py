@@ -3,15 +3,15 @@ from functions import set_owner, set_token, set_prefix, get_owner, get_prefix, g
 import os
 import time
 
-default_commands = 'pip3.10 install vkbottle && pip3.10 install mcrcon'
+default_commands = 'pip3.10 install vkbottle; pip3.10 install mcrcon; pip3.10 install ttos-py'
 
 
 def replacement():
     print('INFO | Проверка библиотек...')
     try:
         import vkbottle
-        import json
         import mcrcon
+        import TtoS
 
         print('OK | Библиотеки в порядке')
     except Exception as e:
@@ -45,7 +45,7 @@ if get_replace() is True:
     replacement()
     print('INFO | Убедитесь, что Вы в каталоге где находится файл main.py!')
     print('Загрузка...')
-    time.sleep(7) # Сделано специально!!
+    time.sleep(4) # Сделано специально!!
 
     # os.system('screen -S BotVK python3.10 main.py')
     os.system('python3.10 main.py')
@@ -57,7 +57,7 @@ else:
     else:
         print('INFO | Убедитесь, что Вы в каталоге где находится файл main.py!')
         print('Загрузка...')
-        time.sleep(7) # Сделано специально!!
+        time.sleep(4) # Сделано специально!!
 
         # os.system('screen -S BotVK python3.10 main.py')
         os.system('python3.10 main.py')

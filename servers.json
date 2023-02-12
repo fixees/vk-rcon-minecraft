@@ -6,8 +6,8 @@
     "users": [
         {
             "id": "319990365",
-            "rcon": "VIP",
-            "perms": "0"
+            "rcon": "ADMIN",
+            "perms": "**"
         }
     ],
     "perms": [
@@ -38,10 +38,10 @@
     ],
     "servers": [
         {
-            "name": "example",
-            "rcon_ip": "1.1.1.1",
-            "rcon_port": 32779,
-            "rcon_pass": "supersecret"
+            "name": "test",
+            "rcon_ip": "localhost",
+            "rcon_port": 25575,
+            "rcon_pass": "superpassword"
         }
     ]
 }

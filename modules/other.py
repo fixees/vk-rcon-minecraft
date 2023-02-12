@@ -1,8 +1,8 @@
 from vkbottle.bot import BotLabeler, Message
-from functions import get_prefix
-
 from sys import platform
+
 import time
+import TtoS
 
 other_labeler = BotLabeler()
 other_labeler.vbml_ignore_case = True
@@ -12,13 +12,17 @@ other_labeler.vbml_ignore_case = True
   Можно изменить только доступ к команде
 """
 
-update = '0.0.5'
+update = '0.5.1.2'
+txt = TtoS.Image()
 
 
-@other_labeler.message(text='{0}test'.format(get_prefix()))
+@other_labeler.message(text='test')
 async def help_cmd(message: Message):
     try:
-        await message.reply(f"Проект -> https://fixees.ru/projects | Update {update} \nPlatform: {platform} \nTime: {time.time()}")
+        await message.answer(
+            message=f"-> fixees.ru/projects \n* Update: {update} \n* Platform: {platform} \n\n {txt.output('fixees', 'made_by')}"
+
+        )
 
     except Exception as e:
         await message.reply('⚠ / Произошла ошибка, код ошибки: {0}'.format(e))

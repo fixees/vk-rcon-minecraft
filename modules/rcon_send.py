@@ -28,12 +28,12 @@ async def cmd_add_server(message: Message, name, ip, port, passw):
             }
             w_server(y)
             await message.reply(
-                '♻ | Сервер {0}, со значениями: \n- Пароль {1}\n- Айпи {2}\n- Порт: {3}\n\nБыл добавлен!'.format(name,
+                '♻ | Сервер {0}, со значениями: \n- Пароль {1}\n- Айпи {2}\n- Порт: {3}\n\nДобавлен!'.format(name,
                                                                                                                  passw,
                                                                                                                  ip,
                                                                                                                  port))
     except Exception as e:
-        await message.reply(e)
+        await message.reply(f'⚠ | Произошла ошибка: \n {e=}, \n {type(e)=} ')
 
 
 @rcon_labeler.private_message(PermissionOwners(), text='{0}права сет <user> <perms>'.format(prefix))
@@ -61,7 +61,7 @@ async def cmd_set_perms(message: Message, user, perms):
             easy_create_user(y)
             await message.reply('♻ | Пользователь {0}, с правами {1}, был создан!'.format(new_id, perms))
     except Exception as e:
-        await message.reply(e)
+        await message.reply(f'⚠ | Произошла ошибка: \n {e=}, \n {type(e)=} ')
 
 
 @rcon_labeler.private_message(PermissionOwners(), text='{0}сервера'.format(prefix))
@@ -79,7 +79,7 @@ async def cmd_perms_list(message: Message, name):
         else:
             await message.reply('❗ | Привилегии с названием {0}, не найдено!'.format(name))
     except Exception as e:
-        await message.reply(e)
+        await message.reply(f'⚠ | Произошла ошибка: \n {e=}, \n {type(e)=} ')
 
 
 @rcon_labeler.private_message(PermissionOwners(), text='{0}права'.format(prefix))
@@ -132,7 +132,7 @@ async def cmd_set_status(message: Message, nick, name):
         await message.reply('⚠ | Произошла ошибка, возможно, такого пользователя не существует во ВКонтакте')
 
     except Exception as e:
-        await message.reply('⚠ | Произошла ошибка: {0}'.format(e))
+        await message.reply(f'⚠ | Произошла ошибка: \n {e=}, \n {type(e)=} ')
 
 
 @rcon_labeler.private_message(Permission(), text='{0}ркон <server> <cmd>'.format(prefix))
@@ -205,21 +205,6 @@ async def cmd_send(message: Message, server, cmd):
                                     'Ответ: \n{0}'.format(send_message_rcon(cmd, server)))
 
             elif str(cmd) not in easy_check_perms_user(id=message.from_id):
-
-                if '{0}' in end:
-                    command_list = command.split()
-                    number = 0
-
-                    for count, i in enumerate(command_list):
-                        if i == '{0}':
-                            number += count
-
-                    def replace_text(n, text):
-                        command_list[n] = text
-                        return command_list
-
-                    replace_text(number, end_list[number])
-
                 await message.reply('❗ | Вам не разрешено использовать команду {0}'.format(cmd))
 
         elif not easy_check_server(name_server=server):
@@ -228,4 +213,4 @@ async def cmd_send(message: Message, server, cmd):
     except OSError:
         await message.reply('❗ | Сервер {0}, не отвечает запросу'.format(server))
     except Exception as e:
-        await message.reply(e)
+        await message.reply(f'⚠ | Произошла ошибка: \n {e=}, \n {type(e)=} ')

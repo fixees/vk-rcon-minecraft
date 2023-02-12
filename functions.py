@@ -251,11 +251,11 @@ def easy_check_perms_user(id):
 
 
 def send_message_rcon(cmd, server):
-    r_a = easy_check_server(name_server=server, ret='ip')
-    r_pass = easy_check_server(name_server=server, ret='passw')
-    r_pt = easy_check_server(name_server=server, ret='port')
+    r_a = str(easy_check_server(name_server=server, ret='ip'))
+    r_pass = str(easy_check_server(name_server=server, ret='passw'))
+    r_pt = int(easy_check_server(name_server=server, ret='port'))
 
-    with MCRcon(host=r_a, password=r_pass, port=r_pt) as mcr:
+    with MCRcon(host=r_a, password=r_pass, port=r_pt, timeout=5, tlsmode=0) as mcr:
         resp = re.sub('§e|§a|§c|§l|§b|§d|§f|§k|§m|§n|§o|§r|§0|§1|§2|§3|§4|§5|§6|§7|§8|§9', '',
                       mcr.command(cmd))
         return resp
