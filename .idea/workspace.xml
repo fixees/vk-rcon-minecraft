@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="db689dea-b3d1-4695-8239-72b107b08578" name="Changes" comment="update 0.5.1.2">
+      <change beforePath="$PROJECT_DIR$/functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/install.py" beforeDir="false" afterPath="$PROJECT_DIR$/install.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/linux.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/help.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/help.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/other.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/other.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/rcon_send.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/rcon_send.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/permission_rule.py" beforeDir="false" afterPath="$PROJECT_DIR$/permission_rule.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/servers.json" beforeDir="false" afterPath="$PROJECT_DIR$/servers.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows.bat" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/vints/OneDrive/Рабочий стол/GitHub/vk-rcon-minecraft-0.0.5-pub",
+    "settings.editor.selected.configurable": "terminal"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="db689dea-b3d1-4695-8239-72b107b08578" name="Changes" comment="" />
+      <created>1676198418057</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1676198418057</updated>
+    </task>
+    <task id="LOCAL-00001" summary="update 0.5.1.2">
+      <created>1676204604536</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1676204604536</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="update 0.5.1.2" />
+    <option name="LAST_COMMIT_MESSAGE" value="update 0.5.1.2" />
+  </component>
+</project>
