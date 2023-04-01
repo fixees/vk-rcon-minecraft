@@ -1,7 +1,27 @@
 import json
 import re
+import sqlite3
 
 from mcrcon import MCRcon
+
+
+class DataBase:
+    __instance = None
+
+    def __new__(cls):
+        if cls.__instance is None:
+            cls.__instance = super().__new__(cls)
+        return cls.__instance
+
+    def __del__(self):
+        self.__instance = None
+
+    def __init__(self):
+        self.con = sqlite3.connect("database.sqlite")
+        self.cur = self.con.cursor()
+
+
+db = DataBase()
 
 
 def get_replace():
@@ -62,70 +82,69 @@ def set_replace(boolean):
             json.dump(data, jsonFile, indent=4, ensure_ascii=False)
 
 
-def w_server(new_data):
-    with open('servers.json', 'r+', encoding='utf-8') as file:
-        file_data = json.load(file)
-        for i in file_data['servers']:
-            file_data["servers"].append(new_data)
-            file.seek(0)
-            json.dump(file_data, file, indent=4, ensure_ascii=False)
-            break
+def w_server(name, ip, port, passw):
+    db.cur.execute(
+        "INSERT INTO servers (name, rcon_ip, rcon_password, rcon_port) VALUES (?, ?, ?, ?)",
+        (
+            name,
+            ip,
+            passw,
+            port
+        )
+    )
+    db.con.commit()
 
 
 def easy_already_server(name_server):
-    with open('servers.json', encoding='utf-8') as json_file:
-        data = json.load(json_file)
-        for i in data['servers']:
-            if i['name'] == str(name_server):
-                return True
+    db.cur.execute("SELECT name FROM servers WHERE name = ?", (name_server,))
+
+    if db.cur.fetchone() is not None:
+        return True
 
 
-def easy_create_user(new_data):
-    with open('servers.json', 'r+', encoding='utf-8') as file:
-        file_data = json.load(file)
-        for i in file_data['users']:
-            file_data["users"].append(new_data)
-            file.seek(0)
-            json.dump(file_data, file, indent=4, ensure_ascii=False)
-            break
+def easy_create_user(new_id, name, perms, value):
+
+    db.cur.execute("INSERT INTO users (id, name, permission_rcon, permission_bot) VALUES (?, ?, ?, ?)",
+        (
+            new_id,
+            name,
+            perms,
+            value
+        )
+    )
+    db.con.commit()
 
 
 def easy_get_user(id):
-    with open('servers.json', encoding='utf-8') as json_file:
-        data = json.load(json_file)
-        for i in data['users']:
-            if i['id'] == str(id):
-                return True
+    db.cur.execute("SELECT id FROM users WHERE id = ?", (id,))
+
+    if db.cur.fetchone() is not None:
+        return True
 
 
 def easy_get_perm(perm, id):
-    with open('servers.json', encoding='utf-8') as json_file:
-        data = json.load(json_file)
-        for i in data['users']:
-            if i['id'] == str(id):
-                if i['rcon'] == str(perm):
-                    perms = i['rcon']
-                    return perms
+    db.cur.execute("SELECT permission_rcon FROM users WHERE id = ?", (id,))
+    permission_rcon = db.cur.fetchone()
+
+    if permission_rcon is not None and str(permission_rcon[0]) == str(perm):
+        return permission_rcon
 
 
 def easy_update_perm(id, perm):
-    with open("servers.json", "r+", encoding='utf-8') as jsonFile:
-        data = json.load(jsonFile)
-
-    for i in data['users']:
-        if i["id"] == str(id):
-            i["rcon"] = perm
-            with open("servers.json", "w", encoding='utf-8') as jsonFile:
-                json.dump(data, jsonFile, indent=4, ensure_ascii=False)
-            return True
+    db.cur.execute("UPDATE users SET permission_rcon = ? WHERE id = ?", (perm, id))
+    db.con.commit()
 
 
 def all_servers():
-    with open("servers.json", "r+", encoding='utf-8') as jsonFile:
-        data = json.load(jsonFile)
+    db.cur.execute("SELECT * FROM servers")
+    values = db.cur.fetchall()
+
     servers = ''
-    for i in data['servers']:
-        servers += '| {0} / {1}:{2},\n'.format(i['name'], i['rcon_ip'], i['rcon_port'])
+
+    for count, i in enumerate(values):
+        count = count + 1
+        servers += '{0}. {1} | {2}:{3} \n'.format(count, i[0], i[1], i[3])
+
     return servers
 
 
@@ -157,92 +176,70 @@ def all_perms(ret: ('massive', 'string') = None):
                 return servers_string
 
 
-def profile(ids, ret: ('perm', 'status') = None):
-    with open("servers.json", "r+", encoding='utf-8') as jsonFile:
-        data = json.load(jsonFile)
+def profile(id, ret: ('perm', 'status') = None):
+    db.cur.execute("SELECT * FROM users WHERE id = ?", (id,))
+    values = db.cur.fetchone()
 
-    perm_string = ''
-    status_string = ''
-    for x in data['users']:
-        if x['id'] == str(ids):
-            perm_string += x['rcon']
-            status_string += x['perms']
+    rcon_string = values[2]  # rcon
+    status_string = values[3]  # bot
+
     match ret:
         case 'perm':
-            return perm_string
+            return rcon_string
         case 'status':
             return status_string
 
 
 def easy_check_status(id):
-    with open("servers.json", "r+", encoding='utf-8') as jsonFile:
-        data = json.load(jsonFile)
-    for a in data["users"]:
-        if a['id'] == str(id):
-            status = a['perms']
-            return status
+    db.cur.execute("SELECT permission_bot FROM users WHERE id = ?", (id,))
+    value = db.cur.fetchone()[0]
+
+    return value
 
 
 def easy_check_user_in_base(id):
-    with open("servers.json", "r+", encoding='utf-8') as jsonFile:
-        data = json.load(jsonFile)
+    db.cur.execute(
+        "SELECT id FROM users WHERE id = ?", id
+    )
+    value = db.cur.fetchone()
 
-    user = ''
-    for a in data["users"]:
-        if a['id'] == str(id):
-            user += '+'
-            return True
-    if user == '':
-        return False
+    if value is not None:
+        return True
 
 
 def easy_rename_status(id, name):
-    with open("servers.json", "r+", encoding='utf-8') as jsonFile:
-        data = json.load(jsonFile)
-
-        for x in data['users']:
-            if x['id'] == str(id):
-                x['perms'] = name
-                with open("servers.json", "w", encoding='utf-8') as jsonFile:
-                    json.dump(data, jsonFile, indent=4, ensure_ascii=False)
-                break
+    db.cur.execute("UPDATE users SET permission_bot = ? WHERE id = ?", (name, id))
+    db.con.commit()
 
 
 def easy_check_server(name_server, ret: ('bool', 'ip', 'passw', 'port') = None):
-    with open('servers.json', encoding='utf-8') as json_file:
-        data = json.load(json_file)
-        for i in data['servers']:
-            # Если name_server есть в i['name']
-            if i['name'] == name_server:
-                ip = i['rcon_ip']
-                passw = i['rcon_pass']
-                port = i['rcon_port']
-                match ret:
-                    case 'bool':
-                        return True
-                    case 'ip':
-                        return ip
-                    case 'passw':
-                        return passw
-                    case 'port':
-                        return port
+    db.cur.execute(f"SELECT * FROM servers WHERE name = '{name_server}'")
+    values = db.cur.fetchone()
+
+    if values is not None:
+
+        match ret:
+            case 'bool':
+                return True
+            case 'ip':
+                return values[0]
+            case 'passw':
+                return values[2]
+            case 'port':
+                return values[1]
 
 
 def easy_check_perm(id):
-    with open('servers.json', encoding='utf-8') as json_file:
-        data = json.load(json_file)
-        for i in data['users']:
-            if i['id'] == str(id):
-                perms = i['rcon']
-                return perms
+    db.cur.execute("SELECT permission_rcon FROM users WHERE id = ?", (id,))
+    return db.cur.fetchone()[0]
 
 
 def easy_check_perms_user(id):
     with open('servers.json', encoding='utf-8') as json_file:
         data = json.load(json_file)
-        for i in data['users']:
-            if i['id'] == str(id):
-                perms = i['rcon']
+
+        db.cur.execute('SELECT permission_rcon FROM users WHERE id = ?', (id,))
+        perms = db.cur.fetchone()[0]
 
         for x in data['perms']:
             for y in x['{0}'.format(perms)]:

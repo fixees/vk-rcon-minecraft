@@ -1,34 +1,32 @@
 from vkbottle.dispatch.rules import ABCRule
 from vkbottle.user import Message
-
 from functions import get_owner
+from functions import DataBase
+
 import json
 
 id_owner = get_owner()
-
-"""
- Я тут ничего не переделывал
-"""
-
+db = DataBase()
 
 class PermissionOwners(ABCRule[Message]):
     async def check(self, event: Message) -> bool:
-        with open("servers.json", "r+", encoding='utf-8') as jsonFile:
-            data = json.load(jsonFile)
 
-        for a in data["users"]:
-            if str(event.from_id) in a['id']:
-                if a['perms'] == '**':
-                    return True
+        db.cur.execute(f'SELECT permission_bot FROM users WHERE id = {event.from_id}')
+        perm = db.cur.fetchone()
+
+        if perm is not None:
+            if perm[0] == '**':
+                return True
 
 
 class Permission(ABCRule[Message]):
     async def check(self, event: Message) -> bool:
-        with open("servers.json", "r+", encoding='utf-8') as jsonFile:
-            data = json.load(jsonFile)
-        for a in data["users"]:
-            if str(event.from_id) in a['id']:
-                return True
 
-        if event.from_id == id_owner:
+        db.cur.execute(f'SELECT permission_bot FROM users WHERE id = {event.from_id}')
+        perm = db.cur.fetchone()
+
+        if perm is not None:
+            return True
+
+        elif event.from_id == id_owner:
             return True

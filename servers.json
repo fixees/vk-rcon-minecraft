@@ -1,15 +1,8 @@
 {
     "replacement": true,
     "token": "",
-    "prefix": ".",
-    "owner_id": 319990365,
-    "users": [
-        {
-            "id": "319990365",
-            "rcon": "ADMIN",
-            "perms": "**"
-        }
-    ],
+    "prefix": "/",
+    "owner_id": 0,
     "perms": [
         {
             "VIP": [
@@ -34,14 +27,6 @@
                     ]
                 }
             ]
-        }
-    ],
-    "servers": [
-        {
-            "name": "test",
-            "rcon_ip": "localhost",
-            "rcon_port": 25575,
-            "rcon_pass": "superpassword"
         }
     ]
 }
