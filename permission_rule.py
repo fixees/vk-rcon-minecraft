@@ -8,6 +8,7 @@ import json
 id_owner = get_owner()
 db = DataBase()
 
+
 class PermissionOwners(ABCRule[Message]):
     async def check(self, event: Message) -> bool:
 
