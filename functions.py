@@ -198,9 +198,7 @@ def easy_check_status(id):
 
 
 def easy_check_user_in_base(id):
-    db.cur.execute(
-        "SELECT id FROM users WHERE id = ?", id
-    )
+    db.cur.execute("SELECT id FROM users WHERE id = ?", (id,))
     value = db.cur.fetchone()
 
     if value is not None:
@@ -222,11 +220,11 @@ def easy_check_server(name_server, ret: ('bool', 'ip', 'passw', 'port') = None):
             case 'bool':
                 return True
             case 'ip':
-                return values[0]
+                return values[1]
             case 'passw':
                 return values[2]
             case 'port':
-                return values[1]
+                return values[3]
 
 
 def easy_check_perm(id):

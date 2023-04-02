@@ -102,14 +102,15 @@ async def cmd_profile(message: Message):
 
 @rcon_labeler.private_message(PermissionOwners(), text='{0}права доп-доступ <nick> <name>'.format(prefix))
 async def cmd_set_status(message: Message, nick, name):
-    new_id = re.findall(r"[0-9]+", nick)[0]
-    try:
-        if name in ['**', '*']:
-            if easy_check_status(new_id) == name:
-                await message.reply('⚠ | Пользователь уже имеет такой доступ!')
+        new_id = re.findall(r"[0-9]+", nick)[0]
 
-            elif not easy_check_user_in_base(new_id):
+        if name in ['**', '*']:
+
+            if not easy_check_user_in_base(new_id):
                 await message.reply('⚠ | Пользователь не найден в базе!')
+
+            elif easy_check_status(new_id) == name:
+                await message.reply('⚠ | Пользователь уже имеет такой доступ!')
 
             elif str(new_id) == str(nick):
                 await message.reply('⚠ | Нельзя изменять доступ самому себе!')
@@ -119,11 +120,7 @@ async def cmd_set_status(message: Message, nick, name):
                 await message.reply('♻ | Пользователь теперь имеет доступ {0}'.format(name))
         else:
             await message.reply('⚠ | Доступ {0} не существует!'.format(name))
-    except IndexError:
-        await message.reply('⚠ | Произошла ошибка, возможно, такого пользователя не существует во ВКонтакте')
 
-    except Exception as e:
-        await message.reply(f'⚠ | Произошла ошибка: \n {e=}, \n {type(e)=} ')
 
 
 @rcon_labeler.private_message(Permission(), text='{0}ркон <server> <cmd>'.format(prefix))
