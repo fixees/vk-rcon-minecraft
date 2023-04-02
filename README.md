@@ -17,5 +17,5 @@
 ![image](https://user-images.githubusercontent.com/112260686/218117574-b4432b83-f515-422a-a854-01d7a5389335.png) \
 `P.S` У меня стоит префикс `.`, так что ввожу через `.` \
 
-# Если у Вас есть вопросы -> [Разработчик](https://vk.me/fixees)
+# Если у Вас есть вопросы -> [Беседа в которой помогут](https://vk.me/join/AJQ1d4vpiSZcfq8_MU2eVAJ_)
 
