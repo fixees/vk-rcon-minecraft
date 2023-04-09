@@ -10,7 +10,7 @@ other_labeler.vbml_ignore_case = True
   НЕ трогать! Если команда/ответ будет изменён, можете не обращаться к разработчику за помощью, да, вот такой я злой!
 """
 
-update = '0.5.0.0'
+update = '0.5.0.2'
 txt = TtoS.Image()
 
 @other_labeler.message(text='update')

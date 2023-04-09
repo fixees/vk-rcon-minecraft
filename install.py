@@ -21,7 +21,8 @@ def replacement():
             os.system(default_commands)
             print('OK | Библиотеки в порядке')
         except Exception as e:
-            print(f'ERR | Что-то пошло не так! \nОшибка: {e}')
+            print(f'ERR | Ошибка: {e}')
+            return
 
     print('INFO | Установка параметров...')
 

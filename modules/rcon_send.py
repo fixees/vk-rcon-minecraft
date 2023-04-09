@@ -12,6 +12,55 @@ prefix = get_prefix()
 owner_id = get_owner()
 
 
+@rcon_labeler.private_message(PermissionOwners(), text='{0}сервер удалить <name>'.format(prefix))
+async def cmd_delete_rcon_server(message: Message, name):
+    try:
+
+        db.cur.execute(f'SELECT name FROM servers WHERE name = "{name}"')
+        name_ = db.cur.fetchone()
+
+        if name_ is not None:
+
+            db.cur.execute(f'DELETE FROM servers WHERE name = "{name}"')
+            db.con.commit()
+
+            await message.reply('♻ | Сервер успешно удалён!')
+
+        else:
+            await message.reply(f'❗ | Сервер с названием [id0|{name}] не найден!')
+
+    except Exception as e:
+        await message.reply(f'⚠ | Произошла ошибка: \n {e=}, \n {type(e)=} ')
+
+
+@rcon_labeler.private_message(PermissionOwners(), text='{0}удалить <user>'.format(prefix))
+async def cmd_delete_user(message: Message, user):
+
+    try:
+        new_id = re.findall(r"[0-9]+", user)[0]
+
+        db.cur.execute(f'SELECT id FROM users WHERE id = {int(new_id)}')
+        id_user = db.cur.fetchone()
+
+        if id_user is not None:
+
+            if id_user[0] == owner_id:
+                await message.reply(f'❗ | [id{id_user[0]}|Владельца] нельзя удалить!')
+                return
+
+            db.cur.execute(f'DELETE FROM users WHERE id = {id_user[0]}')
+            db.con.commit()
+
+            await message.reply(f'♻ | [id{id_user[0]}|Пользователь] успешно удален с базы!')
+
+        else:
+            await message.reply(f'❗ | [id{id_user[0]}|Пользователь] не найден в базе!')
+
+    except Exception as e:
+        await message.reply(f'⚠ | Произошла ошибка: \n {e=}, \n {type(e)=} ')
+
+
+
 @rcon_labeler.private_message(PermissionOwners(), text='{0}сервер ген <name> <ip> <port> <passw>'.format(prefix))
 async def cmd_add_server(message: Message, name, ip, port, passw):
     try:
@@ -102,25 +151,24 @@ async def cmd_profile(message: Message):
 
 @rcon_labeler.private_message(PermissionOwners(), text='{0}права доп-доступ <nick> <name>'.format(prefix))
 async def cmd_set_status(message: Message, nick, name):
-        new_id = re.findall(r"[0-9]+", nick)[0]
+    new_id = re.findall(r"[0-9]+", nick)[0]
 
-        if name in ['**', '*']:
+    if name in ['**', '*', '0']:
 
-            if not easy_check_user_in_base(new_id):
-                await message.reply('⚠ | Пользователь не найден в базе!')
+        if not easy_check_user_in_base(new_id):
+            await message.reply('⚠ | Пользователь не найден в базе!')
 
-            elif easy_check_status(new_id) == name:
-                await message.reply('⚠ | Пользователь уже имеет такой доступ!')
+        elif easy_check_status(new_id) == name:
+            await message.reply('⚠ | Пользователь уже имеет такой доступ!')
 
-            elif str(new_id) == str(nick):
-                await message.reply('⚠ | Нельзя изменять доступ самому себе!')
+        elif str(new_id) == str(nick):
+            await message.reply('⚠ | Нельзя изменять доступ самому себе!')
 
-            elif easy_check_user_in_base(new_id):
-                easy_rename_status(new_id, name)
-                await message.reply('♻ | Пользователь теперь имеет доступ {0}'.format(name))
-        else:
-            await message.reply('⚠ | Доступ {0} не существует!'.format(name))
-
+        elif easy_check_user_in_base(new_id):
+            easy_rename_status(new_id, name)
+            await message.reply('♻ | Пользователь теперь имеет доступ {0}'.format(name))
+    else:
+        await message.reply('⚠ | Доступ {0} не существует!'.format(name))
 
 
 @rcon_labeler.private_message(Permission(), text='{0}ркон <server> <cmd>'.format(prefix))
@@ -134,8 +182,8 @@ async def cmd_send(message: Message, server, cmd):
             end = cmd  # ban fixees
             end_list = end.split()  # ['ban', 'fixees']
 
-            print(end_list)  # ['ban', 'fixees']
-            print(easy_check_perms_user(id=message.from_id))
+            # print(end_list)  # ['ban', 'fixees']
+            # print(easy_check_perms_user(id=message.from_id))
 
             command = difflib.get_close_matches(end_list[0],
                                                 easy_check_perms_user(id=message.from_id))
